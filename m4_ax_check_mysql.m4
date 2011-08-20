@@ -184,7 +184,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
     fi
     fi
     fi
-
+    
     # Checks if --with-mysql flag was passed. If so, verifies that the directory follows assumed
     # structure and include,plugin, and bin directory is found. If there are no issues, this
     # will nullify any errors that would have been thrown by the above checking.
@@ -194,6 +194,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
         CLASSIFIER="root"
         mysql_issue=""
     fi
+
 
     # Checks if specific MySQL directory flags were passed (--with-mysql-plugin, --with-mysql-include, --with-mysql-bin)
     # If so then checks if these variables are proper directories. If not, returns an error. Requires that all three directories must be defined.
@@ -216,6 +217,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
         AX_CHECK_MYSQL_INCLUDES([$with_mysql_include])
         AX_CHECK_MYSQL_COMMANDS([$with_mysql_command])
         CLASSIFIER="custom"
+        fi
     fi
     # If the installation does not exist or satisfy requirements, send an error or warning
     mysql_dne_message=""
@@ -265,7 +267,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
     fi
 
     # Error message for not finding mysql include directory
-    if test "$MYSQL_INCLUDES" == "no"
+   if test "$MYSQL_INCLUDES" == "no"
     then
         if test "$CLASSIFIER" == "source"
         then
@@ -304,7 +306,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
             AC_MSG_WARN([$mysql_include_dne_message])
          fi
     fi
-    
+
     if test "$MYSQL" == "yes"
     then
         # Check MySQL version, wether it's 32 or 64 bit, and modifies the architecture variable accordingly
@@ -378,7 +380,6 @@ AC_DEFUN([AX_CHECK_MYSQL],[
             AC_SUBST(MYSQL_55,no)
         fi
     fi
-fi
 
 ])
 
