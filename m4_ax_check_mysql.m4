@@ -25,11 +25,11 @@
 #   If a MySQL installation is found, AX_CHECK_MYSQL sets variables
 #   regarding the version of MySQL, its architecture (32 or 64 bit), and
 #   wether the version supports Plugins.
-#    
-#   AX_CHECK_MYSQL_INSTALL will check a designated root directory for a command, plugin, and include
-#   directory. If a mysql binary is not found or not found, the IF-FOUND and IF-NOT-FOUND directive will be
-#   executed, respectively. 
 #
+#   AX_CHECK_MYSQL_INSTALL will check a designated root directory for a
+#   command, plugin, and include directory. If a mysql binary is not found
+#   or not found, the IF-FOUND and IF-NOT-FOUND directive will be executed,
+#   respectively.
 #
 #   AX_CHECK_MYSQL adds the following flags:
 #
@@ -63,7 +63,7 @@
 #   and this notice are preserved. This file is offered as-is, without any
 #   warranty.
 
-#serial 2
+#serial 3
 
 AC_ARG_WITH(mysql,AS_HELP_STRING([--with-mysql],[root of the MySQL installation]))
 AC_ARG_WITH(mysql_plugin,AS_HELP_STRING([--with-mysql-plugin],[path to the MySQL installation plugin directory]))
@@ -76,7 +76,7 @@ AC_DEFUN([AX_CHECK_MYSQL_COMMANDS],[
     # Define variables passed
     COMMAND_DIR="$1"
 
-    # Check for the binary, and set appropriate variables 
+    # Check for the binary, and set appropriate variables
     unset ac_cv_mysql_bin_test
     AC_CHECK_PROG(mysql_bin_test,mysql,$COMMAND_DIR,no,$COMMAND_DIR)
     if test "$mysql_bin_test" != "no"; then
@@ -117,10 +117,10 @@ AC_DEFUN([AX_CHECK_MYSQL_INSTALL],[
     #Define variables passed
     ROOT_DIR="$1"
 
-    # Check for include directory   
-    AX_CHECK_MYSQL_INCLUDES([$ROOT_DIR/include/mysql/mysql_version.h])
+    # Check for include directory
+    AX_CHECK_MYSQL_INCLUDES([$ROOT_DIR/include/mysql])
     if test "$MYSQL_INCLUDES" == "no" ; then
-       AX_CHECK_MYSQL_INCLUDES([$ROOT_DIR/include/mysql_version.h])
+       AX_CHECK_MYSQL_INCLUDES([$ROOT_DIR/include])
     fi
     mysql_include_test=$MYSQL_INCLUDES
 
@@ -134,7 +134,7 @@ AC_DEFUN([AX_CHECK_MYSQL_INSTALL],[
 
     # Check for binary directory
     AX_CHECK_MYSQL_COMMANDS([$ROOT_DIR/bin/])
-    
+
     if test "$MYSQL" != "no"
     then
         true
@@ -184,7 +184,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
     fi
     fi
     fi
-    
+
     # Checks if --with-mysql flag was passed. If so, verifies that the directory follows assumed
     # structure and include,plugin, and bin directory is found. If there are no issues, this
     # will nullify any errors that would have been thrown by the above checking.
@@ -289,7 +289,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
 
     # And execute the error messages
     if test "$mysql_dne_message" != ""
-    then 
+    then
          if test "$MYSQL_REQUIRED" != ""
          then
             AC_MSG_ERROR([$mysql_dne_message])
@@ -298,7 +298,7 @@ AC_DEFUN([AX_CHECK_MYSQL],[
          fi
     fi
     if test "$mysql_include_dne_message" != ""
-    then 
+    then
          if test "$INCLUDES_REQUIRED" != ""
          then
             AC_MSG_ERROR([$mysql_include_dne_message])
